@@ -10,5 +10,6 @@ namespace Didar.Application.API.Models
         public string CurrencyType { get; set; }
         public Decimal Price { get; set; }
         public DateTime DateTimePrice { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }

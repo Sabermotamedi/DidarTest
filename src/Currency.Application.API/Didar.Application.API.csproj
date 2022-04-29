@@ -7,21 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Entities\**" />
-    <Compile Remove="Infrastructure\**" />
-    <Compile Remove="Service\**" />
-    <Content Remove="Entities\**" />
-    <Content Remove="Infrastructure\**" />
-    <Content Remove="Service\**" />
-    <EmbeddedResource Remove="Entities\**" />
-    <EmbeddedResource Remove="Infrastructure\**" />
-    <EmbeddedResource Remove="Service\**" />
-    <None Remove="Entities\**" />
-    <None Remove="Infrastructure\**" />
-    <None Remove="Service\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.16" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.16">
       <PrivateAssets>all</PrivateAssets>

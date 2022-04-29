@@ -18,16 +18,31 @@ namespace Didar.Application.API.Service
             _currencyRepository = currencyRepository;
         }
 
-        public CurrencyViewModel GetCurrencyPrice(CurrencyTypes currencyTypes)
+        public CurrencyViewModel GetCurrencyPrice(string currencyTypes)
         {
-            var currency = _currencyRepository.GetCurrencyPrice(currencyTypes, DateTime.Now);
-            return currency;
+            try
+            {
+                var currency = _currencyRepository.GetCurrencyPrice(Enum.Parse<CurrencyTypes>(currencyTypes.ToUpper()), DateTime.Now);
+                return currency;
+            }
+            catch (Exception ex)
+            {
+                return new CurrencyViewModel() { ErrorMessage = ex.Message };
+            }
+
         }
 
-        public CurrencyViewModel GetCurrencyPricePerDate(CurrencyTypes currencyTypes, DateTime dateTime)
+        public CurrencyViewModel GetCurrencyPricePerDate(string currencyTypes, DateTime dateTime)
         {
-            var currency = _currencyRepository.GetCurrencyPrice(currencyTypes, dateTime);
-            return currency;
+            try
+            {
+                var currency = _currencyRepository.GetCurrencyPrice(Enum.Parse<CurrencyTypes>(currencyTypes.ToUpper()), dateTime);
+                return currency;
+            }
+            catch (Exception ex)
+            {
+                return new CurrencyViewModel() { ErrorMessage = ex.Message };
+            }
         }
     }
 }

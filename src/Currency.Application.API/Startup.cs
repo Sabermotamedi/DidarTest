@@ -1,5 +1,6 @@
 
 using Didar.Application.API.Infrastructure.Persistence;
+using Didar.Application.API.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,7 @@ namespace Didar.Application.API
                        option.UseSqlServer(Configuration.GetConnectionString("CurrencyConnectionString")));
 
             services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+            services.AddScoped<ICurrencyService, CurrencyService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

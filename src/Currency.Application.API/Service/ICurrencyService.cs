@@ -6,7 +6,7 @@ namespace Didar.Application.API.Service
 {
     public interface ICurrencyService
     {
-        public CurrencyViewModel GetCurrencyPrice(CurrencyTypes currencyTypes);
-        public CurrencyViewModel GetCurrencyPricePerDate(CurrencyTypes currencyTypes, DateTime dateTime);
+        public CurrencyViewModel GetCurrencyPrice(string currencyTypes);
+        public CurrencyViewModel GetCurrencyPricePerDate(string currencyTypes, DateTime dateTime);
     }
 }

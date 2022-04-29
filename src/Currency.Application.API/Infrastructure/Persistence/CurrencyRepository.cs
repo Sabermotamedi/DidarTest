@@ -9,9 +9,25 @@ namespace Didar.Application.API.Infrastructure.Persistence
 {
     public class CurrencyRepository : ICurrencyRepository
     {
+        private readonly CurrencyBbContext _dbContext;
+
+        public CurrencyRepository(CurrencyBbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         public CurrencyViewModel GetCurrencyPrice(CurrencyTypes currencyTypes, DateTime dateTime)
         {
-            throw new NotImplementedException();
+            CurrencyViewModel currencyResponse = null;
+
+            var currency = _dbContext.Currencies
+                .FirstOrDefault(x => x.CurrencyType == currencyTypes && x.DateTimePrice.Date == dateTime.Date);
+
+            if (currency != null)
+                currencyResponse = new CurrencyViewModel()
+                { CurrencyType = currency.CurrencyType.ToString(), DateTimePrice = currency.DateTimePrice, Price = currency.Price };
+
+            return currencyResponse;
         }
     }
 }

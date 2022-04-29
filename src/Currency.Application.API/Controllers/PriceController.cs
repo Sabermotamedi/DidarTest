@@ -7,7 +7,7 @@ using System;
 namespace Didar.Application.API.Controllers
 {
     [ApiController]
-    [Route("api/v1/[controller]")]
+    [Route("api/v1/[controller]/[action]")]
     public class PriceController : ControllerBase
     {
 
@@ -18,22 +18,22 @@ namespace Didar.Application.API.Controllers
             _currencyService = currencyService;
         }
 
-        [HttpGet(Name = nameof(PriceController))]
-        public ActionResult<CurrencyViewModel> GetCurrencyPrice(CurrencyTypes priceName)
+        [HttpGet(Name = nameof(GetCurrencyPrice))]
+        public ActionResult<CurrencyViewModel> GetCurrencyPrice(string priceName)
         {
             var result = _currencyService.GetCurrencyPrice(priceName);
             if (result != null)
                 return Ok(result);
-            return NotFound();
+            return NotFound(result);
         }
 
-        [HttpGet(Name = "GetCurrencyPricePerDate")]
-        public ActionResult<CurrencyViewModel> GetCurrencyPricePerDate(CurrencyTypes priceName, DateTime dateTime)
+        [HttpGet(Name = nameof(GetCurrencyPricePerDate))]
+        public ActionResult<CurrencyViewModel> GetCurrencyPricePerDate(string priceName, DateTime dateTime)
         {
             var result = _currencyService.GetCurrencyPricePerDate(priceName, dateTime);
             if (result != null)
                 return Ok(result);
-            return NotFound();
+            return NotFound(result);
         }
 
     }
