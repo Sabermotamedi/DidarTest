@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32106.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{62220DC6-595D-4B17-AB55-CEB3457FC992}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{FBF07D6E-77FD-4D63-A237-1E8837198C45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Didar.Application.API", "src\Currency.Application.API\Didar.Application.API.csproj", "{9A9F5B94-B780-4BDC-A95C-4D810040EB05}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9A9F5B94-B780-4BDC-A95C-4D810040EB05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A9F5B94-B780-4BDC-A95C-4D810040EB05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A9F5B94-B780-4BDC-A95C-4D810040EB05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A9F5B94-B780-4BDC-A95C-4D810040EB05}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9A9F5B94-B780-4BDC-A95C-4D810040EB05} = {62220DC6-595D-4B17-AB55-CEB3457FC992}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7060A2D1-73AD-40E2-B59A-0608E6978A19}
+	EndGlobalSection
+EndGlobal
