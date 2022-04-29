@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Didar.Application.API.Entities;
+using Didar.Application.API.Models;
+using Didar.Application.API.Service;
+using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Didar.Application.API.Controllers
 {
@@ -10,21 +10,31 @@ namespace Didar.Application.API.Controllers
     [Route("api/v1/[controller]")]
     public class PriceController : ControllerBase
     {
-        private readonly DateTime _date;
 
-        public PriceController()
+        private readonly ICurrencyService _currencyService;
+
+        public PriceController(ICurrencyService currencyService)
         {
-            _date = DateTime.Now;
+            _currencyService = currencyService;
         }
 
-        [HttpGet(Name =nameof(PriceController))]
-        public int GetPrice(string priceName, DateTime? date)
+        [HttpGet(Name = nameof(PriceController))]
+        public ActionResult<CurrencyViewModel> GetCurrencyPrice(CurrencyTypes priceName)
         {
-            date = _date;
-
-
-
-            return 1;
+            var result = _currencyService.GetCurrencyPrice(priceName);
+            if (result != null)
+                return Ok(result);
+            return NotFound();
         }
+
+        [HttpGet(Name = "GetCurrencyPricePerDate")]
+        public ActionResult<CurrencyViewModel> GetCurrencyPricePerDate(CurrencyTypes priceName, DateTime dateTime)
+        {
+            var result = _currencyService.GetCurrencyPricePerDate(priceName, dateTime);
+            if (result != null)
+                return Ok(result);
+            return NotFound();
+        }
+
     }
 }

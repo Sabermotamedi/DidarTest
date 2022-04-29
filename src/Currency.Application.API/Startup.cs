@@ -31,6 +31,8 @@ namespace Didar.Application.API
             services.AddDbContext<CurrencyBbContext>(option =>
                        option.UseSqlServer(Configuration.GetConnectionString("CurrencyConnectionString")));
 
+            services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

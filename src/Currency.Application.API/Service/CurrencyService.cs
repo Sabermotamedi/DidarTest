@@ -1,5 +1,7 @@
 ﻿using Didar.Application.API.Entities;
 using Didar.Application.API.Infrastructure.Persistence;
+using Didar.Application.API.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,24 +9,25 @@ using System.Threading.Tasks;
 
 namespace Didar.Application.API.Service
 {
-    public class CurrencyService
+    public class CurrencyService : ICurrencyService
     {
-        private readonly CurrencyBbContext _dbContext;
+        private readonly ICurrencyRepository _currencyRepository;
 
-        public CurrencyService(CurrencyBbContext dbContext)
+        public CurrencyService(ICurrencyRepository currencyRepository)
         {
-            _dbContext = dbContext;
+            _currencyRepository = currencyRepository;
         }
 
-        public Currency GetCurrencyPrice(CurrencyTypes currencyTypes, DateTime? dateTime)
+        public CurrencyViewModel GetCurrencyPrice(CurrencyTypes currencyTypes)
         {
-            if (!dateTime.HasValue)
-                dateTime = DateTime.Now;
-            
-            var currency =  _dbContext.Currencies
-                .FirstOrDefault(x => x.CurrencyType == currencyTypes && x.DateTimePrice == dateTime);
+            var currency = _currencyRepository.GetCurrencyPrice(currencyTypes, DateTime.Now);
+            return currency;
+        }
 
-            return currency;            
+        public CurrencyViewModel GetCurrencyPricePerDate(CurrencyTypes currencyTypes, DateTime dateTime)
+        {
+            var currency = _currencyRepository.GetCurrencyPrice(currencyTypes, dateTime);
+            return currency;
         }
     }
 }

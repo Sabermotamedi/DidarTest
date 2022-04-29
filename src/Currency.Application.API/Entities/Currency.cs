@@ -10,5 +10,6 @@ namespace Didar.Application.API.Entities
         public int Id { get; set; }
         public CurrencyTypes CurrencyType { get; set; }
         public DateTime DateTimePrice { get; set; }
+        public decimal Price { get; internal set; }
     }
 }
