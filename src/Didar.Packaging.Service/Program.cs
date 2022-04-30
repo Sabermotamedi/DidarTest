@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Didar.Packaging.API
+namespace Didar.Packaging.Service
 {
     public class Program
     {
