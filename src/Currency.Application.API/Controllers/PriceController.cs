@@ -18,7 +18,7 @@ namespace Didar.Application.API.Controllers
             _currencyService = currencyService;
         }
 
-        [HttpGet(Name = nameof(GetCurrencyPrice))]        
+        [HttpGet(Name = nameof(GetCurrencyPrice))]
         public ActionResult<CurrencyViewModel> GetCurrencyPrice(string priceName)
         {
             var result = _currencyService.GetCurrencyPrice(priceName);

@@ -15,9 +15,9 @@ namespace Didar.Packaging.Grpc.Infrastructure.Persistence
             var client = new MongoClient(configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
             var database = client.GetDatabase(configuration.GetValue<string>("DatabaseSettings:DatabaseName"));
 
-            Products = database.GetCollection<Member>(configuration.GetValue<string>("DatabaseSettings:CollectionName"));
+            Members = database.GetCollection<Member>(configuration.GetValue<string>("DatabaseSettings:CollectionName"));
         }
 
-        public IMongoCollection<Member> Products { get; }
+        public IMongoCollection<Member> Members { get; }
     }
 }

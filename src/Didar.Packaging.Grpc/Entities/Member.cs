@@ -7,7 +7,7 @@ namespace Didar.Packaging.Grpc.Entities
 {
     public class Member
     {
-        public Guid id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Family { get; set; }
         public string NationalCode { get; set; }
@@ -16,5 +16,6 @@ namespace Didar.Packaging.Grpc.Entities
         public DateTime ExpiryDate { get; set; }
         public string AccessMethod { get; set; }
         public Dictionary<string,int> AccessCount { get; set; }
+        public string PaymentInformation { get; set; }
     }
 }

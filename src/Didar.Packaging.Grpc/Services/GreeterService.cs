@@ -1,3 +1,5 @@
+using Didar.Packaging.Grpc.Entities;
+using Didar.Packaging.Grpc.Infrastructure;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
 using System;
@@ -7,20 +9,74 @@ using System.Threading.Tasks;
 
 namespace Didar.Packaging.Grpc
 {
-    public class GreeterService : Greeter.GreeterBase
+    public class GreeterService : PackagingProtoService.PackagingProtoServiceBase
     {
-        private readonly ILogger<GreeterService> _logger;
-        public GreeterService(ILogger<GreeterService> logger)
+        private readonly IMemberRepository _memberRepository;
+
+        public GreeterService(IMemberRepository memberRepository)
         {
-            _logger = logger;
+            _memberRepository = memberRepository;
         }
 
-        public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
+        public override async Task<AccessStatusResponse> HasUserAccessPerRole(UserRequest request, ServerCallContext context)
         {
-            return Task.FromResult(new HelloReply
+            var result = new AccessStatusResponse() { HasAccess = false };
+            Member member = await _memberRepository.GetByNationalId(request.NationalCode);
+
+            if (member != null)
             {
-                Message = "Hello " + request.Name
-            });
+                var methodName = member.AccessCount.FirstOrDefault(x => x.Key == request.MethodName);
+
+                if (member.Role == Role.Free)
+                {
+                    if (methodName.Key == "GetCurrencyPrice" && methodName.Value <= 10)
+                    {
+                        result.HasAccess = true;
+                    }
+                    if (methodName.Key == "GetCurrencyPricePerDate")
+                    {
+                        result.HasAccess = false;
+                    }
+                }
+                else if (member.Role == Role.Bronze)
+                {
+                    if (methodName.Key == "GetCurrencyPrice" && methodName.Value <= 100)
+                    {
+                        result.HasAccess = true;
+                    }
+                    if (methodName.Key == "GetCurrencyPricePerDate")
+                    {
+                        result.HasAccess = false;
+                    }
+                }
+                else if (member.Role == Role.Silver)
+                {
+                    if (methodName.Key == "GetCurrencyPrice" && methodName.Value <= 500)
+                    {
+                        result.HasAccess = true;
+                    }
+                    if (methodName.Key == "GetCurrencyPricePerDate" && methodName.Value <= 1000)
+                    {
+                        result.HasAccess = true;
+                    }
+                }
+                else if (member.Role == Role.Gold)
+                {
+                    if (methodName.Key == "GetCurrencyPrice" && methodName.Value <= 1000)
+                    {
+                        result.HasAccess = true;
+                    }
+                    if (methodName.Key == "GetCurrencyPricePerDate" && methodName.Value <= 2000)
+                    {
+                        result.HasAccess = true;
+                    }
+                }
+            }
+            else
+            {
+                result.HasAccess = false;
+            }
+            return result;
         }
     }
 }

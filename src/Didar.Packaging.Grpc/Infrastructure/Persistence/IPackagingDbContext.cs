@@ -9,6 +9,6 @@ namespace Didar.Packaging.Grpc.Infrastructure.Persistence
 {
     public interface IPackagingDbContext
     {
-        public IMongoCollection<Member> Products { get; }
+        public IMongoCollection<Member> Members { get; }
     }
 }
