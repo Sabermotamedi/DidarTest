@@ -26,6 +26,7 @@ namespace Didar.Application.API.Middleware
 
             if (!result.HasAccess)
             {
+                //Return message
                 return;
             }      
 

@@ -52,7 +52,11 @@ namespace Didar.Application.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-         
+            app.MapWhen(
+                httpContext => httpContext.Request.Path.StartsWithSegments("/api/v1") 
+                           && !httpContext.Request.Path.StartsWithSegments("/api/v1/Upgrade"),
+                subApp => subApp.UseCheckUserAuthorization()
+                       );
 
 
             if (env.IsDevelopment())
@@ -70,10 +74,7 @@ namespace Didar.Application.API
                 endpoints.MapControllers();
             });
 
-   app.MapWhen(
-                    httpContext => httpContext.Request.Path.StartsWithSegments("/api/v1"),
-                    subApp => subApp.UseCheckUserAuthorization()
-                       );
+
 
         }
     }

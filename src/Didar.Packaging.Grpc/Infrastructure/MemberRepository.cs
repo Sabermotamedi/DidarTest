@@ -23,7 +23,7 @@ namespace Didar.Packaging.Grpc.Infrastructure
             await _dbContext.Members.InsertOneAsync(member);
         }
 
-        public async Task<bool> Delete(Guid id)
+        public async Task<bool> Delete(string id)
         {
             FilterDefinition<Member> filter = Builders<Member>.Filter.Eq(p => p.Id, id);
 
@@ -36,12 +36,13 @@ namespace Didar.Packaging.Grpc.Infrastructure
 
         public async Task<IEnumerable<Member>> GetAll()
         {
-            return await _dbContext.Members
+            var res = await _dbContext.Members
                            .Find(p => true)
                            .ToListAsync();
+            return res;
         }
 
-        public async Task<Member> GetById(Guid id)
+        public async Task<Member> GetById(string id)
         {
             return await _dbContext.Members
                            .Find(p => p.Id == id)

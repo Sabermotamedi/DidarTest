@@ -12,13 +12,11 @@ namespace Didar.Application.API.Controllers
     public class PriceController : ControllerBase
     {
 
-        private readonly ICurrencyService _currencyService;
-        private readonly IPackagingGrpcService _packagingGrpc;
+        private readonly ICurrencyService _currencyService;     
 
-        public PriceController(ICurrencyService currencyService, IPackagingGrpcService packagingGrpc)
+        public PriceController(ICurrencyService currencyService)
         {
-            _currencyService = currencyService;
-            _packagingGrpc = packagingGrpc;
+            _currencyService = currencyService;         
         }
 
         [HttpGet(Name = nameof(GetCurrencyPrice))]
