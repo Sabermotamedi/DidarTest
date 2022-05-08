@@ -21,8 +21,8 @@ namespace Didar.Packaging.Grpc
         public override async Task<AccessStatusResponse> HasUserAccessPerRole(UserRequest request, ServerCallContext context)
         {
             var result = new AccessStatusResponse() { HasAccess = false };
-            Member member = await _memberRepository.GetByNationalId(request.NationalCode);
-
+            return result;
+            Member member = await _memberRepository.GetByNationalId(request.MethodName);
             if (member != null)
             {
                 var methodName = member.AccessCount.FirstOrDefault(x => x.Key == request.MethodName);

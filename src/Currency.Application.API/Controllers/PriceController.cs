@@ -1,6 +1,7 @@
 ﻿using Didar.Application.API.Entities;
 using Didar.Application.API.Models;
 using Didar.Application.API.Service;
+using Didar.Application.API.Service.GrpcService;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -12,10 +13,12 @@ namespace Didar.Application.API.Controllers
     {
 
         private readonly ICurrencyService _currencyService;
+        private readonly IPackagingGrpcService _packagingGrpc;
 
-        public PriceController(ICurrencyService currencyService)
+        public PriceController(ICurrencyService currencyService, IPackagingGrpcService packagingGrpc)
         {
             _currencyService = currencyService;
+            _packagingGrpc = packagingGrpc;
         }
 
         [HttpGet(Name = nameof(GetCurrencyPrice))]

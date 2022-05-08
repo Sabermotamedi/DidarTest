@@ -10,13 +10,11 @@ service PackagingProtoService {
   rpc HasUserAccessPerRole (UserRequest) returns (AccessStatusResponse);
 }
 
-// The request message containing the user's name.
 message UserRequest {
   string nationalCode = 1;
   string methodName = 2;
 }
 
-// The response message containing the greetings.
 message AccessStatusResponse {
   bool hasAccess = 1;
 }

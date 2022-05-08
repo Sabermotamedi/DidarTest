@@ -1,6 +1,9 @@
 
 using Didar.Application.API.Infrastructure.Persistence;
+using Didar.Application.API.Middleware;
 using Didar.Application.API.Service;
+using Didar.Application.API.Service.GrpcService;
+using Didar.Packaging.Grpc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -32,8 +35,12 @@ namespace Didar.Application.API
             services.AddDbContext<CurrencyBbContext>(option =>
                        option.UseSqlServer(Configuration.GetConnectionString("CurrencyConnectionString")));
 
+            services.AddGrpcClient<PackagingProtoService.PackagingProtoServiceClient>
+               (o => o.Address = new Uri(Configuration["GrpcSettings:PackagingUrl"]));
+
             services.AddScoped<ICurrencyRepository, CurrencyRepository>();
             services.AddScoped<ICurrencyService, CurrencyService>();
+            services.AddSingleton<IPackagingGrpcService, PackagingGrpcService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -45,6 +52,9 @@ namespace Didar.Application.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+         
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -55,11 +65,16 @@ namespace Didar.Application.API
             app.UseRouting();
 
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+   app.MapWhen(
+                    httpContext => httpContext.Request.Path.StartsWithSegments("/api/v1"),
+                    subApp => subApp.UseCheckUserAuthorization()
+                       );
+
         }
     }
 }

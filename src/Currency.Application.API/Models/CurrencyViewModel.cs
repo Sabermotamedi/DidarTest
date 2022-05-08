@@ -8,7 +8,7 @@ namespace Didar.Application.API.Models
     public class CurrencyViewModel
     {
         public string CurrencyType { get; set; }
-        public Decimal Price { get; set; }
+        public decimal Price { get; set; }
         public DateTime DateTimePrice { get; set; }
         public string ErrorMessage { get; set; }
     }
