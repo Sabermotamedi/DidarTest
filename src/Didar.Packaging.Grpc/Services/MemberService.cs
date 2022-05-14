@@ -34,7 +34,7 @@ namespace Didar.Packaging.Grpc.Services
         }
         public async Task<bool> Upgradelane(string nationalCode, string payment, int validityDuration, Role role)
         {
-            var res = await _memberRepository.GetAll();
+           // var res = await _memberRepository.GetAll();
 
             var member = await _memberRepository.GetByNationalId(nationalCode);
 
